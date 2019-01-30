@@ -8,3 +8,4 @@ target/*
 .idea/*
 .idea/*.xml
 .idea/workspace.xml
+log/

@@ -52,8 +52,8 @@ public class TransferApi {
         return transferService.singlePayment(request);
     }
 
-    @PostMapping(value = { "singlePayment" }, produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
-    @ApiOperation(nickname="trade_trans_singlePayment",value = "单笔代付查询接口", notes = "单笔代付查询接口")
+    @PostMapping(value = { "singlePaymentQuery" }, produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
+    @ApiOperation(nickname="trade_trans_singlePaymentQuery",value = "单笔代付查询接口", notes = "单笔代付查询接口")
     public SilkroadResponse<SinglePaymentQueryBizResponse> singlePaymentQuery(@RequestBody SinglePaymentQueryVO request){
         Map<String, String> errorMap = ValidatorUtil.validate(request);
         if (errorMap.size() > 0) {
