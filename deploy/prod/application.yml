@@ -1,0 +1,13 @@
+server:
+  port: 8060
+spring:
+  application:
+    name: silkroad-loan-helipay
+
+springfox:
+  documentation:
+    swagger:
+      v2:
+        path: /api-doc
+#商户号
+customerNumber: C1800532519
