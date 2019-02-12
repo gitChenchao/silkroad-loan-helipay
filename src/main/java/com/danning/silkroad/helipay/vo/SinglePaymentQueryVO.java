@@ -1,6 +1,9 @@
 package com.danning.silkroad.helipay.vo;
 
 import com.danning.silkroad.helipay.annotation.SignExclude;
+import com.danning.silkroad.helipay.common.enums.HelipayBizType;
+import com.danning.silkroad.helipay.common.request.SinglePaymentQueryReq;
+import lombok.Builder;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
@@ -14,6 +17,7 @@ import javax.validation.constraints.NotNull;
  * @version 1.0.0
  */
 @Data
+@Builder(toBuilder = true)
 public class SinglePaymentQueryVO {
 
     /**

@@ -27,30 +27,30 @@ public class TransferServiceTest extends BaseTestCase {
 
     @Test
     public void singlePayment(){
-        SinglePaymentVO vo = new SinglePaymentVO();
-        vo.setP1_bizType(HelipayBizType._TRANSFER.value);
-        vo.setP2_orderId("120012312300034");
-        vo.setP3_customerNumber(AuthConstants.CUSTOMERNUMBER);
-        vo.setP4_amount("0.01");
-        vo.setP5_bankCode("BOCO");
-        vo.setP6_bankAccountNo("6222620910022100139");
-        vo.setP7_bankAccountName("陈超");
-        vo.setP8_biz("B2C");
-        vo.setP9_bankUnionCode("");
-        vo.setP10_feeType("PAYER");
-        vo.setP11_urgency("true");
-        vo.setP12_summary("结算款");
-        vo.setNotifyUrl("http://150hy91322.51mypc.cn:57396/trade/df/paymentResultNotice");
+        SinglePaymentVO vo = SinglePaymentVO.builder()
+            .P1_bizType(HelipayBizType._TRANSFER.value)
+            .P2_orderId("120012312300034")
+            .P3_customerNumber(AuthConstants.CUSTOMERNUMBER)
+            .P4_amount("0.01")
+            .P5_bankCode("BOCO")
+            .P6_bankAccountNo("6222620910022100139")
+            .P7_bankAccountName("陈超")
+            .P8_biz("B2C")
+            .P9_bankUnionCode("")
+            .P10_feeType("PAYER")
+            .P11_urgency("true")
+            .P12_summary("结算款")
+            .notifyUrl("http://150hy91322.51mypc.cn:57396/trade/df/paymentResultNotice").build();
         SilkroadResponse<SinglePaymentBizResponse> result = transferService.singlePayment(vo);
         System.out.println("---"+JsonUtils.getInstance().toJson(result));
     }
 
     @Test
     public void singlePaymentQuery(){
-        SinglePaymentQueryVO vo = new SinglePaymentQueryVO();
-        vo.setP1_bizType(HelipayBizType._TRANSFERQUERY.value);
-        vo.setP2_orderId("120012312300034");
-        vo.setP3_customerNumber(AuthConstants.CUSTOMERNUMBER);
+        SinglePaymentQueryVO vo = SinglePaymentQueryVO.builder()
+                .P1_bizType(HelipayBizType._TRANSFERQUERY.value)
+                .P2_orderId("120012312300034")
+                .P3_customerNumber(AuthConstants.CUSTOMERNUMBER).build();
         SilkroadResponse<SinglePaymentQueryBizResponse> result = transferService.singlePaymentQuery(vo);
         System.out.println("---"+JsonUtils.getInstance().toJson(result));
     }

@@ -1,82 +1,64 @@
-package com.danning.silkroad.helipay.vo;
+package com.danning.silkroad.helipay.common.request;
 
-import com.danning.silkroad.helipay.annotation.FieldEncrypt;
-import com.danning.silkroad.helipay.annotation.SignExclude;
-import lombok.Builder;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
 
 /**
- * 类名称：BindCardPaymentSmsVO<br>
+ * 类名称：BindCardPaymentSmsReq<br>
  * 类描述：绑卡支付短信VO<br>
- * 创建时间：2019年01月26日<br>
+ * 创建时间：2019年02月12日<br>
  *
  * @author 陈超
  * @version 1.0.0
  */
 @Data
-@Builder(toBuilder = true)
-public class BindCardPaymentSmsVO {
-    /**
-     * 交易类型
-     */
-    @NotNull(message = "交易类型不能为空")
-    private String P1_bizType;
-
-    /**
-     * 商户编号
-     */
-    @NotNull(message = "商户编号不能为空")
-    private String P2_customerNumber;
-
+public class BindCardPaymentSmsReq {
     /**
      * 绑卡id
      */
     @NotNull(message = "绑卡id不能为空")
-    private String P3_bindId;
+    private String bindId;
 
     /**
      * 用户id
      */
     @NotNull(message = "用户id不能为空")
-    private String P4_userId;
+    private String userId;
 
     /**
      * 商户订单号
      */
     @NotNull(message = "商户订单号不能为空")
-    private String P5_orderId;
+    private String orderId;
 
     /**
      * 时间戳
      */
     @NotNull(message = "时间戳不能为空")
-    private String P6_timestamp;
+    private String timestamp;
 
     /**
      * 交易币种
      */
     @NotNull(message = "交易币种不能为空")
-    private String P7_currency;
+    private String currency;
 
     /**
      * 交易金额
      */
     @NotNull(message = "交易类型不能为空")
-    private String P8_orderAmount;
+    private String orderAmount;
 
     /**
      * 手机号
      */
     @NotNull(message = "交易类型不能为空")
-    @FieldEncrypt
-    private String P9_phone;
+    private String phone;
 
     /**
      * 签名方式
      */
     @NotNull(message = "交易类型不能为空")
-    @SignExclude
     private String signatureType;
 }

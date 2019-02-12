@@ -1,6 +1,7 @@
 package com.danning.silkroad.helipay.vo;
 
 import com.danning.silkroad.helipay.annotation.SignExclude;
+import lombok.Builder;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
@@ -14,6 +15,7 @@ import javax.validation.constraints.NotNull;
  * @version 1.0.0
  */
 @Data
+@Builder(toBuilder = true)
 public class BankCardbindListVO {
     /**
      * 交易类型

@@ -1,5 +1,8 @@
 package com.danning.silkroad.helipay.controller;
 
+import com.danning.silkroad.helipay.common.enums.HelipayBizType;
+import com.danning.silkroad.helipay.common.request.SinglePaymentQueryReq;
+import com.danning.silkroad.helipay.common.request.SinglePaymentReq;
 import com.danning.silkroad.helipay.common.response.SilkroadResponse;
 import com.danning.silkroad.helipay.common.response.builder.SinglePaymentBizResponse;
 import com.danning.silkroad.helipay.common.response.builder.SinglePaymentQueryBizResponse;
@@ -12,6 +15,8 @@ import com.danning.silkroad.helipay.vo.SinglePaymentVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,31 +41,53 @@ import java.util.Map;
 public class TransferApi {
 
     private final TransferService transferService;
+    private final String customerNumber;
 
-    public TransferApi(TransferService transferService) {
+    public TransferApi(TransferService transferService,
+                       @Value("${customerNumber}")String customerNumber) {
         this.transferService = transferService;
+        this.customerNumber = customerNumber;
     }
 
     @PostMapping(value = { "singlePayment" }, produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
     @ApiOperation(nickname="trade_trans_authBindCardSms",value = "单笔代付", notes = "单笔代付")
-    public SilkroadResponse<SinglePaymentBizResponse> singlePayment(@RequestBody SinglePaymentVO request){
+    public SilkroadResponse<SinglePaymentBizResponse> singlePayment(@RequestBody SinglePaymentReq request){
         Map<String, String> errorMap = ValidatorUtil.validate(request);
         if (errorMap.size() > 0) {
             LOGGER.error("请求参数【{}】异常", JsonUtils.getInstance().toJson(errorMap));
             return SilkroadResponse.fail("【单笔代付】请求参数异常");
         }
-        return transferService.singlePayment(request);
+        SinglePaymentVO vo = SinglePaymentVO.builder()
+                .P1_bizType(HelipayBizType._TRANSFER.value)
+                .P2_orderId(request.getOrderId())
+                .P3_customerNumber(customerNumber)
+                .P4_amount(request.getAmount())
+                .P5_bankCode(request.getBankCode())
+                .P6_bankAccountNo(request.getBankAccountNo())
+                .P7_bankAccountName(request.getBankAccountName())
+                .P8_biz(request.getBiz())
+                .P9_bankUnionCode(request.getBankUnionCode())
+                .P10_feeType(request.getFeeType())
+                .P11_urgency(request.getUrgency())
+                .P12_summary(request.getSummary())
+                .notifyUrl(request.getNotifyUrl()).build();
+        return transferService.singlePayment(vo);
     }
 
     @PostMapping(value = { "singlePaymentQuery" }, produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
     @ApiOperation(nickname="trade_trans_singlePaymentQuery",value = "单笔代付查询接口", notes = "单笔代付查询接口")
-    public SilkroadResponse<SinglePaymentQueryBizResponse> singlePaymentQuery(@RequestBody SinglePaymentQueryVO request){
+    public SilkroadResponse<SinglePaymentQueryBizResponse> singlePaymentQuery(@RequestBody SinglePaymentQueryReq request){
         Map<String, String> errorMap = ValidatorUtil.validate(request);
         if (errorMap.size() > 0) {
             LOGGER.error("请求参数【{}】异常", JsonUtils.getInstance().toJson(errorMap));
-            return SilkroadResponse.fail("【单笔代付查询接口】请求参数异常");
+            return SilkroadResponse.fail("【单笔代付】请求参数异常");
         }
-        return transferService.singlePaymentQuery(request);
+        SinglePaymentQueryVO vo = SinglePaymentQueryVO.builder()
+                .P1_bizType(HelipayBizType._TRANSFERQUERY.value)
+                .P2_orderId(request.getOrderId())
+                .P3_customerNumber(customerNumber)
+                .build();
+        return transferService.singlePaymentQuery(vo);
     }
 
     @PostMapping(value = { "paymentResultNotice" }, produces = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })

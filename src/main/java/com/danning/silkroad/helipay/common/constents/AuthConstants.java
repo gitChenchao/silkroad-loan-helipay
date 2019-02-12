@@ -33,22 +33,30 @@ public class AuthConstants {
     public static final String urlTransfer = "http://test.trx.helipay.com/trx/transfer/interface.action";
 
     /**
+     * 代付-生产环境
+     */
+    //public static final String urlTransfer = "http://transfer.trx.helipay.com/trx/transfer/interface.action";
+    /**
      * 快捷支付测试环境
      */
     public static final String REQUEST_URL_QUICKPAY = "http://test.trx.helipay.com/trx/quickPayApi/interface.action";
 
+    /**
+     * 快捷支付生产环境
+     */
+    //public static final String REQUEST_URL_QUICKPAY = "http://pay.trx.helipay.com/trx/quickPayApi/interface.action";
     /**
      * 商户代付的签名密钥
      */
     public static final String signKey = "ZzkCVvV3aLKSlVifoLQuiBe0bP4HeROj";
 
     /**
-     * 合利宝cert
+     * 合利宝cert地址
      */
     public static final String CERT_PATH = "d:/helipay.cer";
 
     /**
-     * 商户pfx
+     * 商户pfx地址
      */
     public static final String PFX_PATH = "d:/zl-cert.pfx";
 
